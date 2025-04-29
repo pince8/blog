@@ -1,7 +1,15 @@
 <?php
 
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\FilmController;
+use App\Http\Controllers\KitapController;
+use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ContactController;
 
+use App\Http\Controllers\CertificateController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,17 +20,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-<<<<<<< HEAD
-Route::get('/', function () {
-    return view('welcome');
-});
-=======
-
-
-Route::get('/', function(){
-    return view('front.layouts.app');
-});
 
 Route::get('/blog', function(){
     return view('front.layouts.blog');
@@ -35,9 +32,10 @@ Route::get('/education', function(){
 Route::get('/contact', function(){
     return view('front.layouts.contact');
 })->name('contact');
+
 Route::get('/about', function(){
     return view('front.layouts.about');
-})->name('about');
+})->name('front.about');
 
 Route::get('/home', function () {
     return view('front.layouts.home');
@@ -47,11 +45,64 @@ Route::get('/hobby', function () {
     return view('front.layouts.hobby');
 })->name('hobby');
 
-Route::get('/app', function(){
-    return view('panel.layout.app');
-})->name('app');
-
 Route::get('/sertification', function(){
     return view('front.layouts.sertification');
 })->name('sertification');
->>>>>>> 247e007 (genel taslak oluşturuldu)
+
+Route::get('/', function(){
+    return view('admin.layouts.app');
+});
+
+// About Routes
+Route::get('/about', [AboutController::class, 'index'])->name('about.index');
+Route::get('/about/edit', [AboutController::class, 'edit'])->name('about.edit');
+Route::put('/about/update', [AboutController::class, 'update'])->name('about.update');
+
+// Blog Routes
+Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/create', [BlogController::class, 'create'])->name('blog.create');
+Route::post('/blog/store', [BlogController::class, 'store'])->name('blog.store');
+Route::get('/blog/{id}', [BlogController::class, 'show'])->name('blog.show');
+Route::get('/blog/{id}/edit', [BlogController::class, 'edit'])->name('blog.edit');
+Route::put('/blog/{id}', [BlogController::class, 'update'])->name('blog.update');
+Route::delete('/blog/{id}', [BlogController::class, 'destroy'])->name('blog.destroy');  // Silme rotası
+
+
+// Certification Routes
+Route::get('/certificates', [CertificateController::class, 'index'])->name('certificate.index');
+Route::get('/certificates/create', [CertificateController::class, 'create'])->name('certificate.create');
+Route::post('/certificates', [CertificateController::class, 'store'])->name('certificate.store');
+Route::get('/certificates/{id}/edit', [CertificateController::class, 'edit'])->name('certificate.edit'); // Düzenleme rotası
+Route::put('/certificates/{id}', [CertificateController::class, 'update'])->name('certificate.update'); // Güncelleme rotası
+Route::delete('/certificates/{id}', [CertificateController::class, 'destroy'])->name('certificate.destroy'); // Silme rotası
+
+
+// Film Routes
+Route::get('/films/create', [FilmController::class, 'create'])->name('films.create');
+Route::post('/films/store', [FilmController::class, 'store'])->name('films.store');
+Route::get('/films/index', [FilmController::class, 'index'])->name('films.index');
+Route::get('/film/edit/{id}', [FilmController::class, 'edit'])->name('films.edit');
+Route::put('/films/{id}', [FilmController::class, 'update'])->name('films.update');
+Route::delete('/films/{id}', [FilmController::class, 'destroy'])->name('films.destroy');
+
+// Contact Routes
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+Route::get('/contact/edit', [ContactController::class, 'edit'])->name('contact.edit');
+Route::put('/contact/{id}', [ContactController::class, 'update'])->name('contact.update');
+
+// Project Routes
+Route::resource('project', ProjectController::class);
+
+
+///GİRİŞ İŞLEMLERİ
+Route::get('/register', function () {
+    return view('panel.layout.user2.uyeForm');
+})->name('register');
+
+Route::post('/register', [AuthController::class, 'register']);
+
+
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+///END GİRİŞ İŞLEMLERİ
