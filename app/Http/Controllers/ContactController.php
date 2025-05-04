@@ -15,9 +15,10 @@ class ContactController extends Controller
 
     public function edit()
     {
-        return view('admin.contact.edit', compact('contact'));
-        $contact = Contact::first();
+        $contact = Contact::first(); // önce contact'ı al
+        return view('admin.contact.edit', compact('contact')); // sonra view'e gönder
     }
+
 
 
     public function update(Request $request, $id)

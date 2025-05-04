@@ -48,10 +48,10 @@ Route::get('/hobby', function () {
 Route::get('/sertification', function(){
     return view('front.layouts.sertification');
 })->name('sertification');
-
-Route::get('/', function(){
+Route::get('/', function() {
     return view('admin.layouts.app');
-});
+})->middleware('auth')->name('home');
+
 
 // About Routes
 Route::get('/about', [AboutController::class, 'index'])->name('about.index');
@@ -93,16 +93,25 @@ Route::put('/contact/{id}', [ContactController::class, 'update'])->name('contact
 // Project Routes
 Route::resource('project', ProjectController::class);
 
+/// GİRİŞ İŞLEMLERİ
 
-///GİRİŞ İŞLEMLERİ
+// Kayıt sayfası
 Route::get('/register', function () {
-    return view('panel.layout.user2.uyeForm');
+    return view('admin.user.signUp');
 })->name('register');
 
+// Kayıt işlemi
 Route::post('/register', [AuthController::class, 'register']);
 
+// Giriş sayfası (GET isteği ile form görüntülenir)
+Route::get('/login', function () {
+    return view('admin.user.signIn');  // Giriş formunu burada tanımlayabilirsin
+})->name('login.form');
 
+// Giriş işlemi
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
+// Çıkış işlemi
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-///END GİRİŞ İŞLEMLERİ
+
+/// END GİRİŞ İŞLEMLERİ

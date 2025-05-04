@@ -9,14 +9,13 @@ class AboutController extends Controller
 {
     public function index()
     {
-        $about = About::first();
-        return view('panel.layout.about2.aboutPage', compact('about'));
+        $about = About::first(); // İlk kaydı alır, yoksa null döner.
+        return view('admin.about.index', compact('about'));
     }
-
     public function edit()
     {
         $about = About::first(); // Tek bir kayıt tutuyoruz
-        return view('panel.layout.about2.aboutGuncelle', compact('about'));
+        return view('admin.about.edit', compact('about'));
     }
 
     public function update(Request $request)

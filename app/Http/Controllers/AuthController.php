@@ -45,7 +45,7 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect()->route('panell');
+            return redirect()->route('home');
         }
 
         return redirect()->back()->withErrors(['email' => 'Email or password is incorrect']);

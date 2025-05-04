@@ -11,11 +11,11 @@ class FilmController extends Controller
     public function index()
     {
         $films = Film::all(); // Veritabanındaki tüm filmleri çek
-        return view('panel.layout.hobby2.filmListele', compact('films')); // View'a gönder
+        return view('admin.hobby.film.index', compact('films')); // View'a gönder
 
     }
     public function create() {
-        return view('panel.layout.hobby2.filmEkle');
+        return view('admin.hobby.film.create');
     }
 
     public function store(Request $request) {
@@ -47,7 +47,7 @@ class FilmController extends Controller
         $film = Film::findOrFail($id);
 
         // Film bilgilerini güncelleme formuna gönder
-        return view('panel.layout.hobby2.filmGuncelle', compact('film'));
+        return view('admin.hobby.film.edit', compact('film'));
     }
 
     public function update(Request $request, $id)
