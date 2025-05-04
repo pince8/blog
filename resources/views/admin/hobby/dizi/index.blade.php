@@ -2,17 +2,13 @@
 @section("content")
 
     <div class="card shadow-sm p-3">
-
-
         <div class="card-header ">
-
-
             <h4 class="fs-1">Dizi İşlemleri</h4>
         </div>
 
         <div class="card-body">
             <div class="table-responsive text-nowrap">
-                <a href="http://127.0.0.1:8000/kategoriler/create" class="btn btn-success">
+                <a href="{{ route('series.create') }}" class="btn btn-success">
                     <i class="bi bi-plus-circle"></i> Dizi Ekle
                 </a>
             </div>
@@ -24,46 +20,47 @@
                     <tr>
                         <th>#</th>
                         <th>Dizi Adı</th>
-                        <th>Yapımcısı</th>
-                        <th>Kategorisi</th>
+                        <th>Yönetmen</th>
+                        <th>Tür</th>
+                        <th>Sezon</th>
+                        <th>Puan</th>
+                        <th>Açıklama</th>
+                        <th>Oluşturulma Tarihi</th>
+                        <th>Güncelleme Tarihi</th>
                         <th>İşlemler</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Kişisel Gelişim</td>
-                        <td>2025-01-09 22:00:56</td>
-                        <td>2025-01-09 22:00:56</td>
-                        <td>
-                            <!-- Güncelleme Butonu -->
-                            <a href="http://127.0.0.1:8000/films/update/1" class="btn btn-primary btn-lg">
-                                Güncelle
-                            </a>
-
-                            <!-- Silme Butonu (Form İçine Alınmış) -->
-                            <form action="{{ route('films.destroy', 1) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-lg">Sil</button>
-                            </form>
-                        </td>
-
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Dram</td>
-                        <td>2025-01-09 22:00:56</td>
-                        <td>2025-01-09 22:00:56</td>
-                        <td>
-                            <a href="http://127.0.0.1:8000/kategoriler/update/2" class="btn btn-primary btn-lg">
-                                Güncelle
-                            </a>
-                            <a href=" http://127.0.0.1:8000/kategoriler/delete/2" class="btn btn-danger btn-lg">
-                                Sil
-                            </a>
-                        </td>
-                    </tr>
+                    @foreach($series as $dizi)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $dizi->dizi_adi }}</td>
+                            <td>{{ $dizi->yonetmen }}</td>
+                            <td>{{ $dizi->tur }}</td>
+                            <td>{{ $dizi->sezon }}</td>
+                            <td>{{ $dizi->puan }}/10</td>
+                            <td>{{ $dizi->aciklama ?? 'Açıklama bulunmamaktadır.' }}</td>
+                            <td>{{ $dizi->created_at }}</td>
+                            <td>{{ $dizi->updated_at }}</td>
+                            <td>
+                                <a href="{{ route('series.edit', $dizi->id) }}"
+                                   class="btn btn-primary btn-lg">
+                                    Güncelle
+                                </a>
+                                <form action="{{ route('series.destroy', $dizi->id) }}" method="POST"
+                                      style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-lg">Sil</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                    @if($series->isEmpty())
+                        <tr>
+                            <td colspan="10" class="text-center">Henüz dizi eklenmedi.</td>
+                        </tr>
+                    @endif
                     </tbody>
                 </table>
             </div>
