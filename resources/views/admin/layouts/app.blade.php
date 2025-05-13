@@ -99,9 +99,9 @@
                                 data-feather="briefcase"></i><span>Hobbies</span></a>
                         <ul class="dropdown-menu">
                             <li><a class="nav-link" href="{{ route('films.index') }}">Films</a></li>
-                            <li><a class="nav-link" href="">Series</a></li>
-                            <li><a class="nav-link" href="">Books</a></li>
-                            <li><a class="nav-link" href="">Musics</a></li>
+                            <li><a class="nav-link" href="{{ route('series.index') }}">Series</a></li>
+                            <li><a class="nav-link" href="{{ route('books.index') }}">Books</a></li>
+                            <li><a class="nav-link" href="{{ route('music.index') }}">Musics</a></li>
                         </ul>
                     </li>
 
@@ -245,7 +245,7 @@
     $(document).ready(function () {
         $('#Table').DataTable({
             language: {
-                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/tr.json'
+                url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/tr.json'
             },
             pageLength: 10,
             lengthMenu: [5, 10, 25, 50, 100],

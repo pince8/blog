@@ -1,6 +1,19 @@
 @extends("admin.layouts.app")
 
 @section("content")
+
+    <style>
+        #projectsTable th, #projectsTable td {
+            border: 1px solid #dee2e6 !important;
+            vertical-align: middle;
+        }
+
+        #projectsTable {
+            border-collapse: collapse !important;
+            width: 100% !important;
+        }
+    </style>
+
     <section class="section">
         <div class="section-body">
             <div class="d-flex justify-content-between align-items-center mb-3">
@@ -40,11 +53,11 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('project.edit', $project->id) }}" class="btn btn-primary btn-sm">Güncelle</a>
+                                    <a href="{{ route('project.edit', $project->id) }}" class="btn btn-primary btn-lg">Güncelle</a>
                                     <form action="{{ route('project.destroy', $project->id) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm">Sil</button>
+                                        <button type="submit" class="btn btn-danger btn-lg">Sil</button>
                                     </form>
                                 </td>
                             </tr>
@@ -55,4 +68,21 @@
             @endif
         </div>
     </section>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- DataTables -->
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+
+    <!-- DataTable Etkinleştirme -->
+    <script>
+        $(document).ready(function () {
+            $('#projectsTable').DataTable();
+        });
+    </script>
+
+    <!-- CSRF token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection

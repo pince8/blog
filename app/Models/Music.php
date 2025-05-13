@@ -8,10 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Music extends Model
 {
     use HasFactory;
-    protected $table='musics';
-    protected $fillable=[
+
+    // Bu satıra gerek yok çünkü Laravel otomatik olarak `musics` tablosunu bulur
+    // Ama istersen açıkça belirtilebilir:
+    protected $table = 'musics';
+
+    protected $fillable = [
         'name',
         'singer',
+        'genre',
+        'rating',
         'status',
     ];
 }

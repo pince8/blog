@@ -42,7 +42,7 @@
                             <td>{{ $film->created_at }}</td>
                             <td>{{ $film->updated_at }}</td>
                             <td>
-                                <a href="{{ route('filmGuncellemeSayfasi', $film->id) }}"
+                                <a href="{{ route('films.edit', $film->id) }}"
                                    class="btn btn-primary btn-lg">
                                     Güncelle
                                 </a>

@@ -12,8 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('series', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id(); // Varsayılan id alanı
+            $table->string('series_name'); // Dizi adı
+            $table->string('director');   // Yönetmen
+            $table->string('genre');
+            $table->integer('season');  //Sezon
+            $table->decimal('rating', 3, 1); // Puan (0-10 arası, 1 ondalıklı sayı)
+            $table->text('description')->nullable(); // Açıklama (isteğe bağlı)
+            $table->timestamps(); // Oluşturulma ve güncellenme zamanları
         });
     }
 
